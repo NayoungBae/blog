@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog - Tailsaw </title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bulma-divider.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/index.js"></script>
+    <style rel="stylesheet" href="../static/css/index.css"></style>
+</head>
+<style>
+    nav.navbar {
+        height: 6rem !important;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+    }
+</style>
+<body>
+<!-- START NAV -->
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../..">
+                <img src="../images/bulma.png" alt="Logo">
+            </a>
+            <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <div class=" navbar-item">
+                    <div class="control has-icons-left">
+                        <input class="input is-rounded" type="email" placeholder="Search">
+                        <span class="icon is-left">
+                <i class="fa fa-search"></i>
+              </span>
+                    </div>
+                </div>
+                <a class="navbar-item is-active is-size-5 has-text-weight-semibold">
+                    Home
+                </a>
+                <a class="navbar-item is-size-5 has-text-weight-semibold">
+                    Examples
+                </a>
+                <a class="navbar-item is-size-5 has-text-weight-semibold">
+                    Features
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- END NAV -->
+
+<!-- Articles -->
+<section class="hero ">
+    <div class="hero-body">
+        <div class="container">
+            <div class="buttons is-right">
+                <button id="write" class="button is-rounded modal-button">글쓰기</button>
+            </div>
+        </div>
+        <div class="container">
+            <table class="table table is-hoverable is-fullwidth">
+                <thead>
+                <tr>
+                    <th><abbr title="Position">Pos</abbr></th>
+                    <th>Team</th>
+                    <th>Qualification or relegation</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr id="1-post">
+                        <th>1</th>
+                        <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                        </td>
+                        <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                        <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- 글쓰기 모달 -->
+<div id="write-modal" class="modal">
+    <div id="write-modal-background" class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button id="close-write-modal" class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer>
+    </div>
+</div>
+
+<!-- 상세보기 모달 -->
+<div id="detail-modal" class="modal">
+    <div id="detail-modal-background" class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button id="close-detail-modal" class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Bulma - Blog theme</strong> by <a href="https://gonzalojs.com">Gonzalo Gutierrez</a>. Based on the <a
+                href="http://jigsaw-blog-staging.tighten.co/">jigsaw-blog</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>
+
+</body>
+
+</html>
