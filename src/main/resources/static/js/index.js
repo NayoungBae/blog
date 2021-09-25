@@ -7,10 +7,33 @@ $(document).ready(function() {
         $("#write-name").val("");
         $("#write-content").val("");
         $("#modal-name").text("글쓰기");
-        $("#modify-btns").hide();
-        $("#save-btns").show();
+        $("#modify-post-btn").hide();
+        $("#save-post-btn").show();
         $("#write-modal").addClass("is-active");
     });
+
+    $("#delete-btn").click(function() {
+        let checked_count = $("input:checkbox[name=check]:checked").length;
+        if(checked_count > 1) {
+            alert("하나만 선택해주세요");
+            $("input:checkbox[name=check]").prop("checked", false);
+            return;
+        }
+        if(checked_count == 0) {
+            alert("삭제할 게시물을 선택해주세요");
+            return;
+        }
+            let checked_value = $("input:checkbox[name=check]:checked").val();
+        $.ajax({
+            type:"DELETE",
+            url:`/api/posts/${checked_value}`,
+            success: function(response) {
+                window.location.reload();
+            }
+        });
+
+    });
+
     //글 저장
     $("#save-post-btn").click(function() {
         writePost();
@@ -47,9 +70,9 @@ $(document).ready(function() {
    $("#modify-btn").click(function() {
         $("#detail-modal").removeClass("is-active");
         getModifyData();
-        $("#save-btns").hide();
+        $("#save-post-btn").hide();
         $("#modal-name").text("글수정");
-        $("#modify-btns").show();
+        $("#modify-post-btn").show();
         $("#write-modal").addClass("is-active");
     });
 
@@ -57,8 +80,8 @@ $(document).ready(function() {
     $("#modify-post-btn").click(function() {
         modifyPost();
     });
-    //글쓰기 취소: input값 초기화 / 모달 닫기
-    $("#cancel-save-btn").click(function () {
+    //취소: input값 초기화 / 모달 닫기
+    $("#cancel-btn").click(function () {
         if(confirm("취소하시겠습니까?")) {
             $("#write-title").val("");
             $("#write-name").val("");
@@ -82,9 +105,9 @@ function getPosts() {
                     let name = response[i]["name"];
                     let modified_at_date = response[i]["modifiedAt"].substr(0,10);
                     let temp_html =
-                        `<tr id="${id}-post" onclick="showDetail('${id}')">
-                            <td>
-                                <input id="${id}-checkbox" type="checkbox" value="${id}">
+                        `<tr onclick="showDetail('${id}')">
+                            <td onclick="event.cancelBubble=true">
+                                <input id="${id}-checkbox" name="check" type="checkbox" value="${id}">
                             </td>
                             <th id="${id}">${id}</th>
                             <td id="${id}-title">${title}</td>
@@ -161,7 +184,6 @@ function writePost() {
         contentType:"application/json",
         data: JSON.stringify(data),
         success: function(response) {
-            alert("작성되었습니다");
             window.location.reload();
         }
     });

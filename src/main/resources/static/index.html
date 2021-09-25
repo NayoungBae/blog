@@ -26,7 +26,7 @@
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="../..">
-                <img src="../images/bulma.png" alt="Logo">
+                <img src="../images/logo.png" alt="Logo">
             </a>
             <span class="navbar-burger burger" data-target="navbarMenu">
           <span></span>
@@ -38,21 +38,12 @@
             <div class="navbar-end">
                 <div class=" navbar-item">
                     <div class="control has-icons-left">
-                        <input class="input is-rounded" type="email" placeholder="Search">
+                        <input class="input is-rounded" placeholder="Search">
                         <span class="icon is-left">
-                <i class="fa fa-search"></i>
-              </span>
+                            <i class="fa fa-search"></i>
+                        </span>
                     </div>
                 </div>
-                <a class="navbar-item is-active is-size-5 has-text-weight-semibold">
-                    Home
-                </a>
-                <a class="navbar-item is-size-5 has-text-weight-semibold">
-                    Examples
-                </a>
-                <a class="navbar-item is-size-5 has-text-weight-semibold">
-                    Features
-                </a>
             </div>
         </div>
     </div>
@@ -65,15 +56,16 @@
         <div class="container post-list-container">
             <div class="container">
                 <div class="buttons is-right write-btn-container">
+                    <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
                     <button id="write-btn" class="button is-rounded modal-button">글쓰기</button>
                 </div>
             </div>
-            <div class="container">
-                <table class="table table is-hoverable is-fullwidth post-list-aligin-center">
+            <div class="container post-list-table-container">
+                <table id="write-table" class="table table is-hoverable is-fullwidth post-list-aligin-center">
                     <thead>
                     <tr>
                         <th class="cell-width-8"></th>
-                        <th class="cell-width-8"><abbr title="Position">No.</abbr></th>
+                        <th class="cell-width-8">No.</th>
                         <th>제목</th>
                         <th clas="cell-width-30">작성자</th>
                         <th id="date">작성일</th>
@@ -126,13 +118,10 @@
         </section>
         <footer class="modal-card-foot">
             <div class="container">
-                <div id="save-btns" class="buttons is-right">
+                <div id="btns" class="buttons is-right">
+                    <button id="cancel-btn" class="button">취소</button>
                     <button id="save-post-btn" class="button is-success">글쓰기</button>
-                    <button id="cancel-save-btn" class="button">취소</button>
-                </div>
-                <div id="modify-btns" class="buttons is-right">
-                    <button id="modify-post-btn" class="button is-success">수정</button>
-                    <button id="cancel-modify-btn" class="button">취소</button>
+                    <button id="modify-post-btn" class="button is-success">수정하기</button>
                 </div>
             </div>
         </footer>
@@ -184,9 +173,8 @@
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
-            <strong>Bulma - Blog theme</strong> by <a href="https://gonzalojs.com">Gonzalo Gutierrez</a>. Based on the <a
-                href="http://jigsaw-blog-staging.tighten.co/">jigsaw-blog</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+            ©2021 Nayoung.  All rights Reserved<br>
+            contact: <a href="mailto:nybae2015@gmail.com">nybae2015@gmail.com</a>
         </p>
     </div>
 </footer>

@@ -1,3 +1,10 @@
+img {
+    height: 100px;
+}
+.post-list-table-container {
+    min-height: 500px;
+    margin-top: 30px;
+}
 .post-list-container {
     width: 80%;
 }
