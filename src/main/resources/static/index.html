@@ -62,25 +62,26 @@
 <!-- Articles -->
 <section class="hero ">
     <div class="hero-body">
-        <div id="content-container" class="container">
+        <div class="container post-list-container">
             <div class="container">
                 <div class="buttons is-right write-btn-container">
                     <button id="write-btn" class="button is-rounded modal-button">글쓰기</button>
                 </div>
             </div>
             <div class="container">
-                <table class="table table is-hoverable is-fullwidth">
+                <table class="table table is-hoverable is-fullwidth post-list-aligin-center">
                     <thead>
                     <tr>
                         <th class="cell-width-8"></th>
-                        <th class="cell-width-8"><abbr title="Position">번호</abbr></th>
+                        <th class="cell-width-8"><abbr title="Position">No.</abbr></th>
                         <th>제목</th>
                         <th clas="cell-width-30">작성자</th>
+                        <th id="date">작성일</th>
                     </tr>
                     </thead>
                     <tbody id="table-tbody">
                         <tr>
-                            <td id="table-empty" colspan="4">
+                            <td id="table-empty" colspan="5">
                                 작성한 글이 없습니다.
                             </td>
                         </tr>
@@ -91,20 +92,49 @@
     </div>
 </section>
 
-<!-- 글쓰기 모달 -->
+<!-- 글쓰기/수정 모달 -->
 <div id="write-modal" class="modal">
     <div id="write-modal-background" class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
+            <p id="modal-name" class="modal-card-title">글쓰기</p>
             <button id="close-write-modal" class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
             <!-- Content ... -->
+            <div class="field">
+                <label class="label">제목</label>
+                <div class="control">
+                    <input id="write-title" class="input" type="text" placeholder="제목을 입력하세요">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">작성자</label>
+                <div class="control">
+                    <input id="write-name" class="input" type="text" placeholder="이름을 입력하세요">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">내용</label>
+                <div class="control">
+                    <textarea id="write-content" class="textarea" placeholder="내용을 입력하세요"></textarea>
+                </div>
+            </div>
+            <input id="write-id" type="hidden" value="">
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success">Save changes</button>
-            <button class="button">Cancel</button>
+            <div class="container">
+                <div id="save-btns" class="buttons is-right">
+                    <button id="save-post-btn" class="button is-success">글쓰기</button>
+                    <button id="cancel-save-btn" class="button">취소</button>
+                </div>
+                <div id="modify-btns" class="buttons is-right">
+                    <button id="modify-post-btn" class="button is-success">수정</button>
+                    <button id="cancel-modify-btn" class="button">취소</button>
+                </div>
+            </div>
         </footer>
     </div>
 </div>
@@ -114,15 +144,39 @@
     <div id="detail-modal-background" class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
+            <p class="modal-card-title"></p>
             <button id="close-detail-modal" class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
             <!-- Content ... -->
+            <div class="detail-container">
+                <table class="table table is-fullwidth">
+                    <tbody>
+                        <tr>
+                            <td class="cell-width-15-bold">제목</td>
+                            <td id="detail-title" colspan="3">안녕하세요</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-width-15-bold">작성자</td>
+                            <td id="detail-name">김철수</td>
+                            <td class="cell-width-15-bold">작성일</td>
+                            <td id="detail-createdate">2021.09.25</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-width-15-bold">내용</td>
+                            <td id="detail-content">안녕하세요!!<br>안녕하세요</td>
+                        </tr>
+                    </tbody>
+                    <input id="detail-id" type="hidden" value="">
+                </table>
+            </div>
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success">Save changes</button>
-            <button class="button">Cancel</button>
+            <div class="container">
+                <div class="buttons is-right">
+                    <button id="modify-btn" class="button">수정</button>
+                </div>
+            </div>
         </footer>
     </div>
 </div>

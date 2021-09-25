@@ -1,7 +1,7 @@
-#content-container {
+.post-list-container {
     width: 80%;
 }
-table {
+.post-list-aligin-center {
     text-align: center;
     margin: auto;
 }
@@ -10,4 +10,13 @@ table {
 }
 .cell-width-30 {
     width: 30%;
+}
+.detail-container {
+    width: 90%;
+    min-height: 200px;
+    margin: auto;
+}
+.cell-width-15-bold {
+    width: 15%;
+    font-weight: bold;
 }
