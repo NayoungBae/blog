@@ -1,0 +1,13 @@
+#content-container {
+    width: 80%;
+}
+table {
+    text-align: center;
+    margin: auto;
+}
+.cell-width-8 {
+    width: 8%;
+}
+.cell-width-30 {
+    width: 30%;
+}

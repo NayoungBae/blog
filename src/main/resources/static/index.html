@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/bulma-divider.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/index.js"></script>
-    <style rel="stylesheet" href="../static/css/index.css"></style>
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <style>
     nav.navbar {
@@ -62,34 +62,31 @@
 <!-- Articles -->
 <section class="hero ">
     <div class="hero-body">
-        <div class="container">
-            <div class="buttons is-right">
-                <button id="write" class="button is-rounded modal-button">글쓰기</button>
+        <div id="content-container" class="container">
+            <div class="container">
+                <div class="buttons is-right write-btn-container">
+                    <button id="write-btn" class="button is-rounded modal-button">글쓰기</button>
+                </div>
             </div>
-        </div>
-        <div class="container">
-            <table class="table table is-hoverable is-fullwidth">
-                <thead>
-                <tr>
-                    <th><abbr title="Position">Pos</abbr></th>
-                    <th>Team</th>
-                    <th>Qualification or relegation</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr id="1-post">
-                        <th>1</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
-                        </td>
-                        <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
-                    </tr>
+            <div class="container">
+                <table class="table table is-hoverable is-fullwidth">
+                    <thead>
                     <tr>
-                        <th>2</th>
-                        <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
-                        <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                        <th class="cell-width-8"></th>
+                        <th class="cell-width-8"><abbr title="Position">번호</abbr></th>
+                        <th>제목</th>
+                        <th clas="cell-width-30">작성자</th>
                     </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="table-tbody">
+                        <tr>
+                            <td id="table-empty" colspan="4">
+                                작성한 글이 없습니다.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>

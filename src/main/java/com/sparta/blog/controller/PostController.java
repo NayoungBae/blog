@@ -28,6 +28,14 @@ public class PostController {
         return postRepository.findAll();
     }
 
+    @GetMapping("/api/posts/{id}")
+    public Post getPost(@PathVariable Long id) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("PostController) DB에 ID값이 없습니다.")
+        );
+        return post;
+    }
+
     @PutMapping("/api/posts/{id}")
     public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.update(id, requestDto);
