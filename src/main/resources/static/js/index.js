@@ -23,14 +23,16 @@ $(document).ready(function() {
             alert("삭제할 게시물을 선택해주세요");
             return;
         }
+        if(confirm("삭제하시겠습니까?")) {
             let checked_value = $("input:checkbox[name=check]:checked").val();
-        $.ajax({
-            type:"DELETE",
-            url:`/api/posts/${checked_value}`,
-            success: function(response) {
-                window.location.reload();
-            }
-        });
+            $.ajax({
+                type:"DELETE",
+                url:`/api/posts/${checked_value}`,
+                success: function(response) {
+                    window.location.reload();
+                }
+            });
+        }
 
     });
 
@@ -183,7 +185,6 @@ function writePost() {
     let title = $("#write-title").val().trim();
     let name = $("#write-name").val().trim();
     let content = $("#write-content").val().trim();
-    let click_count = 0;
 
     if(title == "") {
         alert("제목을 입력하세요");
@@ -201,6 +202,7 @@ function writePost() {
         return;
     }
 
+    //버튼 여러번 누르는 것 방지
     $("#save-post-btn").attr("disabled", true);
     let data = {title:title, name:name, content:content}
     $.ajax({
@@ -234,6 +236,7 @@ function modifyPost() {
     let name = $("#write-name").val();
     let content = $("#write-content").val();
 
+    //버튼 여러번 누르는 것 방지
     $("#modify-post-btn").attr("disabled", true);
     let data = {title:title, name:name, content:content}
     $.ajax({

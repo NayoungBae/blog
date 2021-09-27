@@ -3,7 +3,7 @@
     display: flex;
 }
 #search-select {
-    margin-right: 4px;
+    margin-right: 8px;
 }
 #search-input {
     max-width: 240px;
