@@ -183,6 +183,7 @@ function writePost() {
     let title = $("#write-title").val().trim();
     let name = $("#write-name").val().trim();
     let content = $("#write-content").val().trim();
+    let click_count = 0;
 
     if(title == "") {
         alert("제목을 입력하세요");
@@ -199,8 +200,10 @@ function writePost() {
         $("#write-content").focus();
         return;
     }
-        let data = {title:title, name:name, content:content}
-        $.ajax({
+
+    $("#save-post-btn").attr("disabled", true);
+    let data = {title:title, name:name, content:content}
+    $.ajax({
         type:"POST",
         url:"/api/posts",
         contentType:"application/json",
@@ -230,6 +233,8 @@ function modifyPost() {
     let title = $("#write-title").val();
     let name = $("#write-name").val();
     let content = $("#write-content").val();
+
+    $("#modify-post-btn").attr("disabled", true);
     let data = {title:title, name:name, content:content}
     $.ajax({
         type:"PUT",
