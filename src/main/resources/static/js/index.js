@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    getPosts();
+    getPosts("/api/posts");
 
     //글쓰기 버튼 누르면 모달로 글쓰기 창이 나타남
     $("#write-btn").click(function() {
@@ -91,12 +91,28 @@ $(document).ready(function() {
     });
 });
 
+//검색
+function search() {
+    if(window.event.keyCode == 13) {
+        let search_select = $("#search-select").val();
+        let search_input = $("#search-input").val();
+        let url = "";
+        if($("#search-input").val() == "") {
+            url = "/api/posts";
+        } else {
+            url = `/api/posts?${search_select}=${search_input}`;
+        }
+        getPosts(url);
+    }
+}
+
 //게시물 데이터 모두 가져오기
-function getPosts() {
+function getPosts(url) {
     $.ajax({
         type:"GET",
-        url:"/api/posts",
+        url:url,
         success: function(response) {
+            console.log(response);
             if (response.length > 0) {
                 $("#table-tbody").empty();
                 for (let i = 0; i < response.length; i++) {
@@ -116,6 +132,12 @@ function getPosts() {
                         </tr>`;
                     $("#table-tbody").append(temp_html);
                 }
+            } else {
+                $("#table-tbody").empty();
+                let temp_html =`<tr>
+                                    <td id="table-empty" colspan="5">작성한 글이 없습니다.</td>
+                                </tr>`;
+                $("#table-tbody").append(temp_html);
             }
         }
     });

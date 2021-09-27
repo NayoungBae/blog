@@ -1,5 +1,12 @@
-img {
-    height: 100px;
+.navbar-item {
+    /* 모바일화면에서 검색 부분 select태그와 input태그 가로정렬 */
+    display: flex;
+}
+#search-select {
+    margin-right: 4px;
+}
+#search-input {
+    max-width: 240px;
 }
 .post-list-table-container {
     min-height: 500px;

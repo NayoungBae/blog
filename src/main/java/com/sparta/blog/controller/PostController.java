@@ -5,7 +5,6 @@ import com.sparta.blog.models.PostRequestDto;
 import com.sparta.blog.repository.PostRepository;
 import com.sparta.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +22,29 @@ public class PostController {
         return postRepository.save(post);
     }
 
+//    @GetMapping("/api/posts")
+//    public List<Post> getPosts() {
+//        return postRepository.findAllByOrderByModifiedAtDesc();
+//    }
+
     @GetMapping("/api/posts")
-    public List<Post> getPosts() {
-        return postRepository.findAllByOrderByModifiedAtDesc();
+    public List<Post> searchPosts(@RequestParam(value="title", required = false, defaultValue = "") String title,
+                                  @RequestParam(value="name", required = false, defaultValue = "") String name,
+                                  @RequestParam(value="content", required = false, defaultValue = "") String content) {
+        System.out.println("title: " + title + ", title length: " + title.length());
+        System.out.println("name: " + name + ", name length: " + name.length());
+        System.out.println("content: " + content + ", content length: " + content.length());
+        List<Post> result;
+        if(title.length() > 0) {
+            result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title);
+        } else if(name.length() > 0) {
+            result = postRepository.findByNameContainingOrderByModifiedAtDesc(name);
+        } else if(content.length() > 0) {
+            result = postRepository.findByContentContainingOrderByModifiedAtDesc(content);
+        } else {
+            result = postRepository.findAllByOrderByModifiedAtDesc();
+        }
+        return result;
     }
 
     @GetMapping("/api/posts/{id}")

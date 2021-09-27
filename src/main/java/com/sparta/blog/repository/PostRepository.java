@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByOrderByModifiedAtDesc();
+    List<Post> findByTitleContainingOrderByModifiedAtDesc(String title);
+    List<Post> findByNameContainingOrderByModifiedAtDesc(String name);
+    List<Post> findByContentContainingOrderByModifiedAtDesc(String content);
 }
