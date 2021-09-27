@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog - Tailsaw </title>
+    <meta property="og:title" content="MyBlog">
+    <meta property="og:description" content="나의 블로그에 글을 남겨보세요!">
+    <meta property="og:image" content="images/ogimage.png">
+    <title>MyBlog</title>
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -21,6 +24,7 @@
     }
 </style>
 <body>
+<div class="wrap">
 <!-- START NAV -->
 <nav class="navbar">
     <div class="container">
@@ -58,7 +62,7 @@
 <!-- END NAV -->
 
 <!-- Articles -->
-<section class="hero ">
+<section class="hero section-container">
     <div class="hero-body">
         <div class="container post-list-container">
             <div class="container">
@@ -74,8 +78,8 @@
                         <th class="cell-width-8"></th>
                         <th class="cell-width-8">No.</th>
                         <th>제목</th>
-                        <th clas="cell-width-30">작성자</th>
-                        <th id="date">작성일</th>
+                        <th class="cell-width-20">작성자</th>
+                        <th id="date" class="cell-width-20">작성일</th>
                     </tr>
                     </thead>
                     <tbody id="table-tbody">
@@ -154,9 +158,9 @@
                         </tr>
                         <tr>
                             <td class="cell-width-15-bold">작성자</td>
-                            <td id="detail-name">김철수</td>
-                            <td class="cell-width-15-bold">작성일</td>
-                            <td id="detail-createdate">2021.09.25</td>
+                            <td id="detail-name" class="cell-width-35">김철수</td>
+                            <td class="cell-width-15-bold" >작성일</td>
+                            <td id="detail-createdate" class="cell-width-35">2021.09.25</td>
                         </tr>
                         <tr>
                             <td class="cell-width-15-bold">내용</td>
@@ -176,7 +180,7 @@
         </footer>
     </div>
 </div>
-
+</div>
 <footer class="footer">
     <div class="content has-text-centered">
         <p>

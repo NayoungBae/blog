@@ -6,6 +6,7 @@ $(document).ready(function() {
         $("#write-title").val("");
         $("#write-name").val("");
         $("#write-content").val("");
+        $("#write-name").attr("disabled", false); //작성자 이름 못 바꾸게 막았던거 풀기
         $("#modal-name").text("글쓰기");
         $("#modify-post-btn").hide();
         $("#save-post-btn").show();
@@ -73,6 +74,7 @@ $(document).ready(function() {
         $("#detail-modal").removeClass("is-active");
         getModifyData();
         $("#save-post-btn").hide();
+        $("#write-name").attr("disabled", true); //작성자 이름 못 바꾸게 막기
         $("#modal-name").text("글수정");
         $("#modify-post-btn").show();
         $("#write-modal").addClass("is-active");

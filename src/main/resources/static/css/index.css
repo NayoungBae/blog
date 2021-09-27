@@ -1,3 +1,13 @@
+/* 브라우저 화면 비율 조절해도 footer 안 보이게 하기 start */
+html, body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%; height: 100%;
+}
+.wrap {
+    height: 100%;
+}
+/* 브라우저 화면 비율 조절해도 footer 안 보이게 하기 end */
 .navbar-item {
     /* 모바일화면에서 검색 부분 select태그와 input태그 가로정렬 */
     display: flex;
@@ -8,12 +18,11 @@
 #search-input {
     max-width: 240px;
 }
-.post-list-table-container {
-    min-height: 500px;
-    margin-top: 30px;
-}
 .post-list-container {
     width: 80%;
+}
+.post-list-table-container {
+    margin-top: 30px;
 }
 .post-list-aligin-center {
     text-align: center;
@@ -22,8 +31,11 @@
 .cell-width-8 {
     width: 8%;
 }
-.cell-width-30 {
-    width: 30%;
+.cell-width-20 {
+    width: 20%;
+}
+.cell-width-35 {
+    width: 35%;
 }
 .detail-container {
     width: 90%;
