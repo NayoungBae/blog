@@ -64,7 +64,7 @@
 <!-- Articles -->
 <section class="hero section-container">
     <div class="hero-body">
-        <div class="container post-list-container">
+        <div class="container list-btn-container">
             <div class="container">
                 <div class="buttons is-right write-btn-container">
                     <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
@@ -91,6 +91,20 @@
                     </tbody>
                 </table>
             </div>
+            <!-- Pagination -->
+            <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+                <a class="pagination-previous">Previous</a>
+                <a class="pagination-next">Next page</a>
+                <ul class="pagination-list">
+                    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+                    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>

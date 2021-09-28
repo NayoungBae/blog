@@ -98,8 +98,8 @@ $(document).ready(function() {
 //검색
 function search() {
     if(window.event.keyCode == 13) {
-        let search_select = $("#search-select").val();
-        let search_input = $("#search-input").val();
+        let search_select = $("#search-select").val().trim();
+        let search_input = $("#search-input").val().trim();
         let url = "";
         if($("#search-input").val() == "") {
             url = "/api/posts";
@@ -117,13 +117,14 @@ function getPosts(url) {
         url:url,
         success: function(response) {
             console.log(response);
-            if (response.length > 0) {
+            let result = response["content"];
+            if (result.length > 0) {
                 $("#table-tbody").empty();
-                for (let i = 0; i < response.length; i++) {
-                    let id = response[i]["id"];
-                    let title = response[i]["title"];
-                    let name = response[i]["name"];
-                    let modified_at_date = response[i]["modifiedAt"].substr(0,10);
+                for (let i = 0; i < result.length; i++) {
+                    let id = result[i]["id"];
+                    let title = result[i]["title"];
+                    let name = result[i]["name"];
+                    let modified_at_date = result[i]["modifiedAt"].substr(0,10);
                     let temp_html =
                         `<tr onclick="showDetail('${id}')">
                             <td onclick="event.cancelBubble=true">

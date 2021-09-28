@@ -5,6 +5,9 @@ import com.sparta.blog.models.PostRequestDto;
 import com.sparta.blog.repository.PostRepository;
 import com.sparta.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,21 +31,27 @@ public class PostController {
 //    }
 
     @GetMapping("/api/posts")
-    public List<Post> searchPosts(@RequestParam(value="title", required = false, defaultValue = "") String title,
+    public Page<Post> getPosts(@RequestParam(value="title", required = false, defaultValue = "") String title,
                                   @RequestParam(value="name", required = false, defaultValue = "") String name,
                                   @RequestParam(value="content", required = false, defaultValue = "") String content) {
         System.out.println("title: " + title + ", title length: " + title.length());
         System.out.println("name: " + name + ", name length: " + name.length());
         System.out.println("content: " + content + ", content length: " + content.length());
-        List<Post> result;
+        //List<Post> result;
+        Page<Post> result;
+        PageRequest pageRequest = PageRequest.of(0, 5);
         if(title.length() > 0) {
-            result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title);
+            //result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title);
+            result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title, pageRequest);
         } else if(name.length() > 0) {
-            result = postRepository.findByNameContainingOrderByModifiedAtDesc(name);
+            //result = postRepository.findByNameContainingOrderByModifiedAtDesc(name);
+            result = postRepository.findByNameContainingOrderByModifiedAtDesc(name, pageRequest);
         } else if(content.length() > 0) {
-            result = postRepository.findByContentContainingOrderByModifiedAtDesc(content);
+            //result = postRepository.findByContentContainingOrderByModifiedAtDesc(content);
+            result = postRepository.findByContentContainingOrderByModifiedAtDesc(content, pageRequest);
         } else {
-            result = postRepository.findAllByOrderByModifiedAtDesc();
+            //result = postRepository.findAllByOrderByModifiedAtDesc();
+            result = postRepository.findAllByOrderByModifiedAtDesc(pageRequest);
         }
         return result;
     }
