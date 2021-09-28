@@ -33,13 +33,15 @@ public class PostController {
     @GetMapping("/api/posts")
     public Page<Post> getPosts(@RequestParam(value="title", required = false, defaultValue = "") String title,
                                   @RequestParam(value="name", required = false, defaultValue = "") String name,
-                                  @RequestParam(value="content", required = false, defaultValue = "") String content) {
+                                  @RequestParam(value="content", required = false, defaultValue = "") String content,
+                                  @RequestParam(value="page" , required = false, defaultValue = "0") String page) {
         System.out.println("title: " + title + ", title length: " + title.length());
         System.out.println("name: " + name + ", name length: " + name.length());
         System.out.println("content: " + content + ", content length: " + content.length());
         //List<Post> result;
         Page<Post> result;
-        PageRequest pageRequest = PageRequest.of(0, 5);
+        int currnt_page = Integer.parseInt(page);
+        PageRequest pageRequest = PageRequest.of(currnt_page, 10); //현재페이지(0부터 시작), 한 페이지 당 출력 개수
         if(title.length() > 0) {
             //result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title);
             result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title, pageRequest);

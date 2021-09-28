@@ -1,5 +1,13 @@
+let result_length = "" //현재 페이지에서 보이는 게시물 개수
+let result_count = "";  //게시물 총 개수
+let page_number = ""; //현재 페이지(0부터 시작)
+let data_per_page = ""; //한 페이지당 게시물 개수
+let total_pages = ""; //총 페이지 수
+
 $(document).ready(function() {
-    getPosts("/api/posts");
+    getPosts("/api/posts", 0);
+    paging(0, result_count, result_length, page_number, total_pages);
+    selectPage(page_number);
 
     //글쓰기 버튼 누르면 모달로 글쓰기 창이 나타남
     $("#write-btn").click(function() {
@@ -93,31 +101,36 @@ $(document).ready(function() {
             $("#write-modal").removeClass("is-active");
         }
     });
+
+    $("#pagination-next").click(function() {
+        let current_previous_val = parseInt($("#pagination-previous").attr("value"));
+        console.log(current_previous_val);
+        paging(current_previous_val + 1, result_count, result_length, page_number, total_pages);
+        selectPage(page_number);
+    });
 });
 
-//검색
-function search() {
-    if(window.event.keyCode == 13) {
-        let search_select = $("#search-select").val().trim();
-        let search_input = $("#search-input").val().trim();
-        let url = "";
-        if($("#search-input").val() == "") {
-            url = "/api/posts";
-        } else {
-            url = `/api/posts?${search_select}=${search_input}`;
-        }
-        getPosts(url);
+//게시물 데이터 모두 가져와 목록 만들기
+function getPosts(url, current_page) {
+    let url_include_page = "";
+    if(url.includes("?")) {
+        url_include_page = url + "&page=" + current_page;
+    } else {
+        url_include_page = url + "?page=" + current_page;
     }
-}
-
-//게시물 데이터 모두 가져오기
-function getPosts(url) {
     $.ajax({
         type:"GET",
-        url:url,
+        async: false, //전역변수에 값을 담기 위함
+        url:url_include_page,
         success: function(response) {
             console.log(response);
-            let result = response["content"];
+            let result = response["content"];  //게시물 데이터
+            result_length = result.length;
+            console.log(result);
+            result_count = response["totalElements"].toString();  //게시물 총 개수
+            page_number = response["pageable"]["pageNumber"].toString(); //현재 페이지(0부터 시작)
+            data_per_page = response["pageable"]["pageSize"].toString(); //한 페이지당 게시물 개수
+            total_pages = response["totalPages"].toString(); //총 페이지 수
             if (result.length > 0) {
                 $("#table-tbody").empty();
                 for (let i = 0; i < result.length; i++) {
@@ -139,13 +152,75 @@ function getPosts(url) {
                 }
             } else {
                 $("#table-tbody").empty();
-                let temp_html =`<tr>
-                                    <td id="table-empty" colspan="5">작성한 글이 없습니다.</td>
-                                </tr>`;
+                let temp_html =`<tr><td id="table-empty" colspan="5">작성한 글이 없습니다.</td></tr>`;
                 $("#table-tbody").append(temp_html);
             }
         }
     });
+}
+
+//페이징처리
+function paging(previous, result_count, result_length, page_number, total_pages) {
+    let next = previous + 1;  //Next page 버튼값 / total_pages/10 = 1 //1
+    let remainder = total_pages % 10; //2
+    let end_page = Math.floor(total_pages / 10); //1
+    let for_start = (previous * 10) + 1; //1
+    let for_end;
+    //alert("previous:" + previous + ", end_page: " + end_page);
+    if(previous == end_page) {
+        for_end = (previous * 10) + remainder;
+    } else {
+        for_end = next * 10;
+    }
+    $("#pagination-list").empty();
+    for(let i=for_start; i<=for_end; i++) {
+        let page_tag = `<li><a id="page-${i-1}" class="pagination-link" 
+                               aria-label="Goto page ${i}" onclick="selectPage('${i-1}')">${i}</a></li>`;
+        $("#pagination-list").append(page_tag);
+    }
+    $("#pagination-previous").attr("value", previous);
+    $("#pagination-next").attr("value", next);
+
+    if(result_length == 0) {
+        $("#pagination-previous").hide();
+        $("#pagination-next").hide();
+    }
+    if(previous == "0") {
+        $("#pagination-previous").hide();
+    } else {
+        $("#pagination-previous").show();
+    }
+    if(total_pages > 10) {
+        $("#pagination-next").show();
+    } else {
+        $("#pagination-next").hide();
+    }
+}
+
+//선택한 페이지로
+function selectPage(page_number) {
+    console.log("page_number:" + page_number);
+    $(".pagination-link").removeClass("is-current");
+    $(`#page-${page_number}`).addClass("is-current");
+    //$(`#page-${page_number}`).attr("aria-current", "page");
+
+    let url = "/api/posts";
+    getPosts(url, page_number);
+}
+
+//검색
+function search() {
+    if(window.event.keyCode == 13) {
+        let search_select = $("#search-select").val().trim();
+        let search_input = $("#search-input").val().trim();
+        let url = "";
+        if($("#search-input").val() == "") {
+            url = "/api/posts";
+        } else {
+            url = `/api/posts?${search_select}=${search_input}`;
+        }
+        getPosts(url, 0);
+    }
 }
 
 //클릭한 게시물의 상세내용 보여주기
@@ -207,7 +282,7 @@ function writePost() {
 
     //버튼 여러번 누르는 것 방지
     $("#save-post-btn").attr("disabled", true);
-    let data = {title:title, name:name, content:content}
+    let data = {title:title, name:name, content:content};
     $.ajax({
         type:"POST",
         url:"/api/posts",
