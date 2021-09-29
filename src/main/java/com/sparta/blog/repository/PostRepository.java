@@ -8,11 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-//    List<Post> findAllByOrderByModifiedAtDesc();
-//    List<Post> findByTitleContainingOrderByModifiedAtDesc(String title);
-//    List<Post> findByNameContainingOrderByModifiedAtDesc(String name);
-//    List<Post> findByContentContainingOrderByModifiedAtDesc(String content);
-
     Page<Post> findAllByOrderByModifiedAtDesc(Pageable pageable);
     Page<Post> findByTitleContainingOrderByModifiedAtDesc(String title, Pageable pageable);
     Page<Post> findByNameContainingOrderByModifiedAtDesc(String name, Pageable pageable);

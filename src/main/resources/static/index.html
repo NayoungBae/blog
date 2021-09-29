@@ -24,213 +24,207 @@
     }
 </style>
 <body>
-<div class="wrap">
-<!-- START NAV -->
-<nav class="navbar">
-    <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="../..">
-                <img src="../images/logo.png" alt="Logo">
-            </a>
-            <span class="navbar-burger burger" data-target="navbarMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-        </div>
-        <div id="navbarMenu" class="navbar-menu">
-            <div class="navbar-end">
-                <div class=" navbar-item">
-                    <div class="select is-rounded">
-                        <select id="search-select">
-                            <option value="title">제목</option>
-                            <option value="name">작성자</option>
-                            <option value="content">내용</option>
-                        </select>
+    <div class="wrap">
+    <!---------------------- NAV ---------------------->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="../..">
+                    <img src="../images/logo.png" alt="Logo">
+                </a>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <div class=" navbar-item">
+                        <div class="select is-rounded">
+                            <select id="search-select">
+                                <option value="title">제목</option>
+                                <option value="name">작성자</option>
+                                <option value="content">내용</option>
+                            </select>
+                        </div>
+                        <div class="control has-icons-left">
+                            <input id="search-input" class="input is-rounded" placeholder="Search" onkeyup="search()">
+                            <span class="icon is-left">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
                     </div>
-                    <div class="control has-icons-left">
-                        <input id="search-input" class="input is-rounded" placeholder="Search" onkeyup="search()">
-                        <span class="icon is-left">
-                            <i class="fa fa-search"></i>
-                        </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!---------------------- 게시물 리스트 ---------------------->
+    <section class="hero section-container">
+        <div class="hero-body">
+            <div class="container list-btn-container">
+                <div class="container">
+                    <div class="buttons is-right write-btn-container">
+                        <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
+                        <button id="write-btn" class="button is-rounded modal-button">글쓰기</button>
                     </div>
                 </div>
+                <div class="container post-list-table-container">
+                    <table id="write-table" class="table table is-hoverable is-fullwidth post-list-align-center">
+                        <thead>
+                        <tr>
+                            <th class="cell-width-8"></th>
+                            <th class="cell-width-8">No.</th>
+                            <th>제목</th>
+                            <th class="cell-width-20">작성자</th>
+                            <th id="date" class="cell-width-20">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-tbody">
+                            <tr>
+                                <td id="table-empty" colspan="5">
+                                    작성한 글이 없습니다.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <nav id="pagination" class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+                    <a id="pagination-previous" class="pagination-previous">Previous</a>
+                    <a id="pagination-next" class="pagination-next">Next page</a>
+                    <ul id="pagination-list" class="pagination-list">
+                    </ul>
+                </nav>
             </div>
         </div>
-    </div>
-</nav>
-<!-- END NAV -->
+    </section>
 
-<!-- Articles -->
-<section class="hero section-container">
-    <div class="hero-body">
-        <div class="container list-btn-container">
-            <div class="container">
-                <div class="buttons is-right write-btn-container">
-                    <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
-                    <button id="write-btn" class="button is-rounded modal-button">글쓰기</button>
+    <!---------------------- 글쓰기/수정 모달 ---------------------->
+    <div id="write-modal" class="modal">
+        <div id="write-modal-background" class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p id="modal-name" class="modal-card-title">글쓰기</p>
+                <button id="close-write-modal" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <div class="field">
+                    <label class="label">제목</label>
+                    <div class="control">
+                        <input id="write-title" class="input" type="text" placeholder="제목을 입력하세요">
+                    </div>
                 </div>
-            </div>
-            <div class="container post-list-table-container">
-                <table id="write-table" class="table table is-hoverable is-fullwidth post-list-aligin-center">
-                    <thead>
-                    <tr>
-                        <th class="cell-width-8"></th>
-                        <th class="cell-width-8">No.</th>
-                        <th>제목</th>
-                        <th class="cell-width-20">작성자</th>
-                        <th id="date" class="cell-width-20">작성일</th>
-                    </tr>
-                    </thead>
-                    <tbody id="table-tbody">
-                        <tr>
-                            <td id="table-empty" colspan="5">
-                                작성한 글이 없습니다.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Pagination -->
-            <nav id="pagination" class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-                <a id="pagination-previous" class="pagination-previous">Previous</a>
-                <a id="pagination-next" class="pagination-next">Next page</a>
-                <ul id="pagination-list" class="pagination-list">
-                    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-                    <li><span class="pagination-ellipsis">&hellip;</span></li>
-                    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-                    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-                    <li><span class="pagination-ellipsis">&hellip;</span></li>
-                    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-                </ul>
-            </nav>
+
+                <div class="field">
+                    <label class="label">작성자</label>
+                    <div class="control">
+                        <input id="write-name" class="input" type="text" placeholder="이름을 입력하세요">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">내용</label>
+                    <div class="control">
+                        <textarea id="write-content" class="textarea" placeholder="내용을 입력하세요"></textarea>
+                    </div>
+                </div>
+                <input id="write-id" type="hidden" value="">
+            </section>
+            <footer class="modal-card-foot">
+                <div class="container">
+                    <div id="btns" class="buttons is-right">
+                        <button id="cancel-btn" class="button">취소</button>
+                        <button id="save-post-btn" class="button is-success">글쓰기</button>
+                        <button id="modify-post-btn" class="button is-success">수정하기</button>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
-</section>
 
-<!-- 글쓰기/수정 모달 -->
-<div id="write-modal" class="modal">
-    <div id="write-modal-background" class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p id="modal-name" class="modal-card-title">글쓰기</p>
-            <button id="close-write-modal" class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-            <!-- Content ... -->
-            <div class="field">
-                <label class="label">제목</label>
-                <div class="control">
-                    <input id="write-title" class="input" type="text" placeholder="제목을 입력하세요">
+    <!---------------------- 상세보기 모달 ---------------------->
+    <div id="detail-modal" class="modal">
+        <div id="detail-modal-background" class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title"></p>
+                <button id="close-detail-modal" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <div class="detail-container">
+                    <table class="table table is-fullwidth">
+                        <tbody>
+                            <tr>
+                                <td class="cell-width-15-bold">제목</td>
+                                <td id="detail-title" colspan="3">안녕하세요</td>
+                            </tr>
+                            <tr>
+                                <td class="cell-width-15-bold">작성자</td>
+                                <td id="detail-name" class="cell-width-35">김철수</td>
+                                <td class="cell-width-15-bold" >작성일</td>
+                                <td id="detail-createdate" class="cell-width-35">2021.09.25</td>
+                            </tr>
+                            <tr>
+                                <td class="cell-width-15-bold">내용</td>
+                                <td id="detail-content">안녕하세요!!<br>안녕하세요</td>
+                            </tr>
+                        </tbody>
+                        <input id="detail-id" type="hidden" value="">
+                    </table>
                 </div>
-            </div>
-
-            <div class="field">
-                <label class="label">작성자</label>
-                <div class="control">
-                    <input id="write-name" class="input" type="text" placeholder="이름을 입력하세요">
+            </section>
+            <footer class="modal-card-foot">
+                <div class="container">
+                    <div class="buttons is-right">
+                        <button id="modify-btn" class="button">수정</button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="field">
-                <label class="label">내용</label>
-                <div class="control">
-                    <textarea id="write-content" class="textarea" placeholder="내용을 입력하세요"></textarea>
-                </div>
-            </div>
-            <input id="write-id" type="hidden" value="">
-        </section>
-        <footer class="modal-card-foot">
-            <div class="container">
-                <div id="btns" class="buttons is-right">
-                    <button id="cancel-btn" class="button">취소</button>
-                    <button id="save-post-btn" class="button is-success">글쓰기</button>
-                    <button id="modify-post-btn" class="button is-success">수정하기</button>
-                </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
-</div>
-
-<!-- 상세보기 모달 -->
-<div id="detail-modal" class="modal">
-    <div id="detail-modal-background" class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title"></p>
-            <button id="close-detail-modal" class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-            <!-- Content ... -->
-            <div class="detail-container">
-                <table class="table table is-fullwidth">
-                    <tbody>
-                        <tr>
-                            <td class="cell-width-15-bold">제목</td>
-                            <td id="detail-title" colspan="3">안녕하세요</td>
-                        </tr>
-                        <tr>
-                            <td class="cell-width-15-bold">작성자</td>
-                            <td id="detail-name" class="cell-width-35">김철수</td>
-                            <td class="cell-width-15-bold" >작성일</td>
-                            <td id="detail-createdate" class="cell-width-35">2021.09.25</td>
-                        </tr>
-                        <tr>
-                            <td class="cell-width-15-bold">내용</td>
-                            <td id="detail-content">안녕하세요!!<br>안녕하세요</td>
-                        </tr>
-                    </tbody>
-                    <input id="detail-id" type="hidden" value="">
-                </table>
-            </div>
-        </section>
-        <footer class="modal-card-foot">
-            <div class="container">
-                <div class="buttons is-right">
-                    <button id="modify-btn" class="button">수정</button>
-                </div>
-            </div>
-        </footer>
     </div>
-</div>
-</div>
-<footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            ©2021 Nayoung.  All rights Reserved<br>
-            contact: <a href="mailto:nybae2015@gmail.com">nybae2015@gmail.com</a>
-        </p>
-    </div>
-</footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
+    <!---------------------- footer ---------------------->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                ©2021 Nayoung.  All rights Reserved<br>
+                contact: <a href="mailto:nybae2015@gmail.com">nybae2015@gmail.com</a>
+            </p>
+        </div>
+    </footer>
 
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-            // Add a click event on each of them
-            $navbarBurgers.forEach(el => {
-                el.addEventListener('click', () => {
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
 
-                    // Get the target from the "data-target" attribute
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
+                // Add a click event on each of them
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
 
-                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
+                        // Get the target from the "data-target" attribute
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
 
+                        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+
+                    });
                 });
-            });
-        }
+            }
 
-    });
-</script>
+        });
+    </script>
 
 </body>
 
